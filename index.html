@@ -3,98 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senior Full Stack Developer Portfolio</title>
+    <title>Senior Developer Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* --- CSS VARIABLES & RESET --- */
+        /* --- VARIABLES & THEME --- */
         :root {
-            --bg-color: #0f172a;       /* Dark Navy Background */
-            --card-bg: #1e293b;        /* Lighter Navy for cards */
-            --text-main: #f8fafc;      /* White-ish text */
-            --text-muted: #94a3b8;     /* Grey text */
-            --accent: #38bdf8;         /* Light Blue Accent */
-            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --bg-dark: #09090b;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); /* Indigo to Purple */
+            --secondary-gradient: linear-gradient(135deg, #3b82f6 0%, #14b8a6 100%); /* Blue to Teal */
+            --accent-glow: rgba(99, 102, 241, 0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: var(--font-main);
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- BACKGROUND EFFECT --- */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -20%; right: -10%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.15), transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(80px);
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -20%; left: -10%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15), transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(80px);
         }
 
         /* --- LAYOUT --- */
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 60px 20px;
         }
 
-        section { margin-bottom: 60px; }
+        /* --- ANIMATIONS --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in { animation: fadeIn 0.8s ease-out forwards; opacity: 0; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
 
-        /* --- HEADER --- */
-        header { text-align: center; margin-bottom: 80px; }
-        h1 { font-size: 2.5rem; margin-bottom: 10px; }
-        .subtitle { color: var(--accent); font-size: 1.2rem; font-weight: 600; letter-spacing: 1px; }
-        .social-links { margin-top: 20px; }
-        .social-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            margin: 0 10px;
-            border: 1px solid var(--text-muted);
+        /* --- HEADER / HERO --- */
+        header { 
+            text-align: left; 
+            margin-bottom: 100px; 
+            padding-top: 40px;
+        }
+        
+        .role-badge {
+            display: inline-block;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
             padding: 8px 16px;
-            border-radius: 20px;
-            transition: 0.3s;
-            font-size: 0.9rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: #c4b5fd;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
-        .social-links a:hover { color: var(--accent); border-color: var(--accent); }
 
-        /* --- ABOUT --- */
-        h2 { border-left: 4px solid var(--accent); padding-left: 15px; margin-bottom: 20px; font-size: 1.8rem; }
-        p { color: var(--text-muted); margin-bottom: 15px; }
-
-        /* --- EXPERIENCE CARDS --- */
-        .timeline { border-left: 2px solid var(--card-bg); padding-left: 30px; margin-left: 10px; }
-        .job-card { margin-bottom: 40px; position: relative; }
-        .job-card::before {
-            content: ''; position: absolute; left: -36px; top: 5px;
-            width: 12px; height: 12px; background: var(--accent); border-radius: 50%;
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .job-title { font-size: 1.2rem; font-weight: bold; }
-        .company { color: var(--accent); font-size: 1rem; margin-bottom: 5px; display: inline-block;}
-        .dates { font-size: 0.9rem; color: #64748b; margin-left: 10px; }
 
-        /* --- SKILLS GRID --- */
-        .skills-grid {
+        .highlight {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-bio {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(99, 102, 241, 0.6); }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: white;
+            margin-left: 10px;
+        }
+        .btn-secondary:hover { border-color: white; }
+
+        /* --- CARDS GENERAL --- */
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 16px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+        }
+
+        section { margin-bottom: 100px; }
+        h2 { font-size: 2rem; margin-bottom: 40px; position: relative; display: inline-block; }
+        h2::after {
+            content: ''; display: block; width: 40%; height: 3px; 
+            background: var(--primary-gradient); margin-top: 10px; border-radius: 2px;
+        }
+
+        /* --- TECH STACK --- */
+        .tech-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
         }
-        .skill-category {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 8px;
-            border-top: 3px solid var(--accent);
-        }
-        .skill-category h3 { margin-bottom: 15px; font-size: 1.1rem; }
-        .tags span {
-            display: inline-block;
-            background: #334155;
+        .tech-category h3 { color: #f8fafc; margin-bottom: 15px; font-size: 1.1rem; display: flex; align-items: center; }
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        .tag {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.9rem;
             color: #e2e8f0;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            margin: 0 5px 5px 0;
+            border: 1px solid transparent;
+            transition: 0.3s;
         }
+        .tag:hover {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: #6366f1;
+            color: white;
+        }
+
+        /* --- EXPERIENCE TIMELINE --- */
+        .timeline { position: relative; padding-left: 40px; }
+        .timeline::before {
+            content: ''; position: absolute; left: 7px; top: 10px; bottom: 0;
+            width: 2px; background: linear-gradient(to bottom, #6366f1, rgba(255,255,255,0.1));
+        }
+
+        .job-item { margin-bottom: 50px; position: relative; }
+        .job-dot {
+            position: absolute; left: -41px; top: 5px;
+            width: 16px; height: 16px;
+            background: #09090b;
+            border: 2px solid #6366f1;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #6366f1;
+        }
+        .job-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap;}
+        .job-title { font-size: 1.3rem; font-weight: 700; color: white; }
+        .company-name { color: #818cf8; font-weight: 600; margin-right: 10px; }
+        .job-date { font-size: 0.85rem; color: #64748b; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 4px;}
+        .job-desc { color: var(--text-secondary); font-size: 0.95rem; }
 
         /* --- FOOTER --- */
-        footer { text-align: center; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--card-bg); padding-top: 40px; }
+        footer {
+            border-top: 1px solid var(--glass-border);
+            padding-top: 40px;
+            text-align: center;
+            color: #64748b;
+        }
 
-        /* --- RESPONSIVE --- */
-        @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            .social-links a { display: block; margin: 10px auto; width: fit-content;}
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .hero-bio { font-size: 1rem; }
+            .job-header { flex-direction: column; align-items: flex-start; gap: 5px;}
         }
     </style>
 </head>
@@ -102,104 +223,115 @@
 
     <div class="container">
         
-        <header>
-            <h1>Bharat Kaneriya</h1>
-            <div class="subtitle">SENIOR FULL STACK DEVELOPER (10 YRS EXP)</div>
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/bharat-kaneriya-8a5157b1/" target="_blank">LinkedIn</a>
-                <a href="https://github.com/bharatkaneriya" target="_blank">GitHub</a>
-                <a href="mailto:kaneriyabharat@gmail.com">Email Me</a>
+        <header class="fade-in">
+            <span class="role-badge">Senior Full Stack Developer</span>
+            <h1>Building Robust<br><span class="highlight">Digital Solutions.</span></h1>
+            <p class="hero-bio">
+                10 years of experience designing scalable architectures. <br>
+                Specialized in <strong>PHP (Laravel)</strong> and <strong>JavaScript (React/Node)</strong>.
+            </p>
+            <div class="cta-group">
+                <a href="https://linkedin.com/in/yourprofile" class="btn btn-primary">Connect on LinkedIn</a>
+                <a href="mailto:youremail@example.com" class="btn btn-secondary">Email Me</a>
             </div>
         </header>
 
-        <section>
-            <h2>About Me</h2>
-            <p>
-                Senior Full Stack Developer with <strong>10 years of professional experience</strong> delivering robust software solutions. 
-                I specialize in creating scalable web applications using <strong>PHP (Laravel)</strong> and <strong>JavaScript (Node.js/React)</strong>.
-            </p>
-            <p>
-                Having worked with top organizations like Nyusoft and Moon Technolabs, I have extensive experience working in Agile/Scrum environments, 
-                building complex reporting portals, and integrating third-party APIs. I focus on writing clean, maintainable code that drives business growth.
-            </p>
-        </section>
-
-        <section>
+        <section class="fade-in delay-1">
             <h2>Technical Toolbox</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>🛠 Backend</h3>
-                    <div class="tags">
-                        <span>PHP</span>
-                        <span>Laravel</span>
-                        <span>CodeIgniter</span>
-                        <span>Node.js</span>
-                        <span>Express</span>
+            <div class="tech-grid">
+                
+                <div class="card">
+                    <div class="tech-category">
+                        <h3>🛠 Backend Architecture</h3>
+                        <div class="tech-tags">
+                            <span class="tag">PHP 8+</span>
+                            <span class="tag">Laravel</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">Express</span>
+                            <span class="tag">CodeIgniter</span>
+                        </div>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3>💻 Frontend</h3>
-                    <div class="tags">
-                        <span>React JS</span>
-                        <span>jQuery</span>
-                        <span>HTML5/CSS3</span>
-                        <span>JavaScript (ES6+)</span>
+
+                <div class="card">
+                    <div class="tech-category">
+                        <h3>💻 Frontend Experience</h3>
+                        <div class="tech-tags">
+                            <span class="tag">React JS</span>
+                            <span class="tag">JavaScript (ES6+)</span>
+                            <span class="tag">jQuery</span>
+                            <span class="tag">HTML5 / CSS3</span>
+                        </div>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3>☁ Cloud & DB</h3>
-                    <div class="tags">
-                        <span>MySQL</span>
-                        <span>MongoDB</span>
-                        <span>AWS (EC2/S3)</span>
-                        <span>GIT</span>
+
+                <div class="card">
+                    <div class="tech-category">
+                        <h3>☁ Cloud & DevOps</h3>
+                        <div class="tech-tags">
+                            <span class="tag">AWS (EC2/S3)</span>
+                            <span class="tag">MySQL</span>
+                            <span class="tag">MongoDB</span>
+                            <span class="tag">Git & GitHub</span>
+                            <span class="tag">RESTful APIs</span>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </section>
 
-        <section>
-            <h2>Experience History</h2>
+        <section class="fade-in delay-2">
+            <h2>Professional Journey</h2>
             <div class="timeline">
                 
-                <div class="job-card">
-                    <div class="job-title">Senior Full Stack Developer</div>
-                    <div>
-                        <span class="company">Nyusoft Solutions</span>
-                        <span class="dates">20XX - Present</span>
+                <div class="job-item">
+                    <div class="job-dot"></div>
+                    <div class="job-header">
+                        <div>
+                            <span class="company-name">Nyusoft Solutions</span>
+                            <span class="job-title">Senior Full Stack Developer</span>
+                        </div>
+                        <span class="job-date">20XX - Present</span>
                     </div>
-                    <p>
-                        Leading development of scalable web applications. Spearheaded the reporting portal project and managed AWS infrastructure.
+                    <p class="job-desc">
+                        Currently leading the development of complex reporting portals. Optimized database performance for large-scale datasets and managed secure AWS infrastructure deployments.
                     </p>
                 </div>
 
-                <div class="job-card">
-                    <div class="job-title">Web Developer</div>
-                    <div>
-                        <span class="company">Moon Technolabs</span>
-                        <span class="dates">20XX - 20XX</span>
+                <div class="job-item">
+                    <div class="job-dot"></div>
+                    <div class="job-header">
+                        <div>
+                            <span class="company-name">Moon Technolabs</span>
+                            <span class="job-title">Web Developer</span>
+                        </div>
+                        <span class="job-date">20XX - 20XX</span>
                     </div>
-                    <p>
-                        Developed custom PHP/Laravel solutions and integrated complex third-party APIs for international clients.
+                    <p class="job-desc">
+                        Built custom Laravel applications for diverse international clients. Integrated third-party APIs (Payment Gateways, CRMs) to enhance system functionality.
                     </p>
                 </div>
 
-                <div class="job-card">
-                    <div class="job-title">Junior Developer</div>
-                    <div>
-                        <span class="company">Group8A India</span>
-                        <span class="dates">20XX - 20XX</span>
+                <div class="job-item">
+                    <div class="job-dot"></div>
+                    <div class="job-header">
+                        <div>
+                            <span class="company-name">Group8A India</span>
+                            <span class="job-title">Junior Developer</span>
+                        </div>
+                        <span class="job-date">20XX - 20XX</span>
                     </div>
-                    <p>
-                        Started professional journey mastering core PHP and MySQL. Collaborated in Agile sprints to deliver weekly features.
+                    <p class="job-desc">
+                        Foundation years. Mastered Core PHP and MySQL while working in weekly Agile sprints. Rapidly progressed from maintenance tasks to feature development.
                     </p>
                 </div>
 
             </div>
         </section>
 
-        <footer>
-            <p>&copy; 2025 Bharat K.</p>
+        <footer class="fade-in delay-3">
+            <p>© 2025. Designed with clean code.</p>
         </footer>
 
     </div>
