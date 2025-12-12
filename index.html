@@ -1,340 +1,556 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bharat Kaneriya | Senior Developer Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bharat Kaneriya | Senior Developer Portfolio</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* -------------------------
+       VARIABLES & RESET
+       ------------------------- */
+    :root {
+      --bg-dark: #050507;
+      --text-primary: #ffffff;
+      --text-secondary: #a1a1aa;
+      --accent: #818cf8;
+      --accent-glow: rgba(129, 140, 248, 0.2);
+      
+      --glass-bg: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-highlight: rgba(255, 255, 255, 0.12);
+      
+      --gradient-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      --gradient-skill: linear-gradient(90deg, #6366f1, #a855f7);
+      
+      --radius: 16px;
+      --max-width: 1000px;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Background Ambient Glows */
+    .ambient-glow {
+      position: fixed;
+      z-index: -1;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.4;
+    }
+    .glow-1 { top: -10%; right: -5%; width: 500px; height: 500px; background: #7c3aed; }
+    .glow-2 { bottom: -10%; left: -5%; width: 400px; height: 400px; background: #2563eb; }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    ul { list-style: none; }
+
+    /* -------------------------
+       UTILITIES & ANIMATIONS
+       ------------------------- */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .flex-row { display: flex; gap: 15px; align-items: center; }
+    .text-gradient {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    /* -------------------------
+       COMPONENTS
+       ------------------------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--glass-border);
+      color: var(--text-primary);
+    }
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--text-primary);
+      transform: translateY(-2px);
+    }
+
+    .card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      padding: 30px;
+      transition: var(--transition);
+    }
+    .card:hover {
+      border-color: var(--glass-highlight);
+      box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+    }
+
+    section { margin-bottom: 50px; }
+    h2 { font-size: 1.75rem; margin-bottom: 24px; font-weight: 600; letter-spacing: -0.5px; }
     
-    <style>
-        /* --- VARIABLES & THEME --- */
-        :root {
-            --bg-dark: #09090b;
-            --text-primary: #ffffff;
-            --text-secondary: #a1a1aa;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); /* Indigo to Purple */
-            --secondary-gradient: linear-gradient(135deg, #3b82f6 0%, #14b8a6 100%); /* Blue to Teal */
-            --accent-glow: rgba(99, 102, 241, 0.15);
-        }
+    /* -------------------------
+       HEADER / HERO
+       ------------------------- */
+    .hero-container {
+      margin-bottom: 60px;
+    }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+    .hero-info h1 {
+      font-size: 2.5rem;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .role-badge {
+      display: inline-block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      background: rgba(99, 102, 241, 0.1);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(99, 102, 241, 0.2);
+    }
+    .hero-bio { color: var(--text-secondary); margin: 16px 0 20px; max-width: 650px; font-size: 1.05rem; }
+    .contact-links { display: flex; gap: 20px; font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 20px; }
+    .contact-links i { color: var(--accent); }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-primary);
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+    /* -------------------------
+       TECH STACK
+       ------------------------- */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .tech-category h3 {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tech-category i { color: var(--accent); }
+    
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      font-size: 0.85rem;
+      background: rgba(255,255,255,0.05);
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      transition: var(--transition);
+    }
+    .tag:hover {
+      background: rgba(99, 102, 241, 0.15);
+      border-color: var(--accent);
+      color: white;
+      transform: translateY(-2px);
+    }
 
-        /* --- BACKGROUND EFFECT --- */
-        body::before {
-            content: '';
-            position: fixed;
-            top: -20%; right: -10%;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.15), transparent 70%);
-            border-radius: 50%;
-            z-index: -1;
-            filter: blur(80px);
-        }
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: -20%; left: -10%;
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.15), transparent 70%);
-            border-radius: 50%;
-            z-index: -1;
-            filter: blur(80px);
-        }
+    /* -------------------------
+       SKILLS
+       ------------------------- */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    @media (max-width: 768px) { .skills-grid { grid-template-columns: 1fr; } }
 
-        /* --- LAYOUT --- */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
+    .skill-item { margin-bottom: 15px; }
+    .skill-header { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.95rem; font-weight: 500; }
+    .skill-track {
+      height: 8px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .skill-bar {
+      height: 100%;
+      width: 0; /* JS animates this */
+      background: var(--gradient-skill);
+      border-radius: 4px;
+      transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
 
-        /* --- ANIMATIONS --- */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .fade-in { animation: fadeIn 0.8s ease-out forwards; opacity: 0; }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
+    /* -------------------------
+       TIMELINE
+       ------------------------- */
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+      border-left: 2px solid rgba(255,255,255,0.1);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: -37px;
+      top: 5px;
+      width: 16px; height: 16px;
+      background: var(--bg-dark);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .company { color: var(--accent); font-weight: 700; font-size: 1.1rem; }
+    .role { font-weight: 600; font-size: 1rem; color: #e4e4e7; }
+    .date {
+      font-size: 0.85rem;
+      background: rgba(255,255,255,0.05);
+      padding: 4px 10px;
+      border-radius: 4px;
+      color: var(--text-secondary);
+    }
+    .timeline-desc { color: var(--text-secondary); font-size: 0.95rem; }
 
-        /* --- HEADER / HERO --- */
-        header { 
-            text-align: left; 
-            margin-bottom: 100px; 
-            padding-top: 40px;
-        }
-        
-        .role-badge {
-            display: inline-block;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            color: #c4b5fd;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
+    /* -------------------------
+       PROJECTS
+       ------------------------- */
+    .project-grid { display: grid; gap: 15px; }
+    .project-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      transition: var(--transition);
+    }
+    .project-card:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--accent);
+      transform: translateX(5px);
+    }
+    .project-icon {
+      width: 45px; height: 45px;
+      background: var(--gradient-primary);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: bold; color: white;
+      margin-right: 15px;
+    }
+    .project-link {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
 
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #fff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    /* -------------------------
+       FOOTER
+       ------------------------- */
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid var(--glass-border);
+      color: #52525b;
+      font-size: 0.9rem;
+    }
 
-        .highlight {
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-bio {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: var(--primary-gradient);
-            color: white;
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
-        }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(99, 102, 241, 0.6); }
-
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--glass-border);
-            color: white;
-            margin-left: 10px;
-        }
-        .btn-secondary:hover { border-color: white; }
-
-        /* --- CARDS GENERAL --- */
-        .card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 16px;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255,255,255,0.2);
-            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
-        }
-
-        section { margin-bottom: 100px; }
-        h2 { font-size: 2rem; margin-bottom: 40px; position: relative; display: inline-block; }
-        h2::after {
-            content: ''; display: block; width: 40%; height: 3px; 
-            background: var(--primary-gradient); margin-top: 10px; border-radius: 2px;
-        }
-
-        /* --- TECH STACK --- */
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        .tech-category h3 { color: #f8fafc; margin-bottom: 15px; font-size: 1.1rem; display: flex; align-items: center; }
-        .tech-tags { display: flex; flex-wrap: wrap; gap: 10px; }
-        .tag {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            color: #e2e8f0;
-            border: 1px solid transparent;
-            transition: 0.3s;
-        }
-        .tag:hover {
-            background: rgba(99, 102, 241, 0.2);
-            border-color: #6366f1;
-            color: white;
-        }
-
-        /* --- EXPERIENCE TIMELINE --- */
-        .timeline { position: relative; padding-left: 40px; }
-        .timeline::before {
-            content: ''; position: absolute; left: 7px; top: 10px; bottom: 0;
-            width: 2px; background: linear-gradient(to bottom, #6366f1, rgba(255,255,255,0.1));
-        }
-
-        .job-item { margin-bottom: 50px; position: relative; }
-        .job-dot {
-            position: absolute; left: -41px; top: 5px;
-            width: 16px; height: 16px;
-            background: #09090b;
-            border: 2px solid #6366f1;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #6366f1;
-        }
-        .job-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap;}
-        .job-title { font-size: 1.3rem; font-weight: 700; color: white; }
-        .company-name { color: #818cf8; font-weight: 600; margin-right: 10px; }
-        .job-date { font-size: 0.85rem; color: #64748b; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 4px;}
-        .job-desc { color: var(--text-secondary); font-size: 0.95rem; }
-
-        /* --- FOOTER --- */
-        footer {
-            border-top: 1px solid var(--glass-border);
-            padding-top: 40px;
-            text-align: center;
-            color: #64748b;
-        }
-
-        /* --- MOBILE --- */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .hero-bio { font-size: 1rem; }
-            .job-header { flex-direction: column; align-items: flex-start; gap: 5px;}
-        }
-    </style>
+    /* -------------------------
+       PRINT STYLES
+       ------------------------- */
+    @media print {
+      body { background: white; color: black; }
+      .ambient-glow, .btn-ghost, .status-dot { display: none; }
+      .card, .tag, .date { border: 1px solid #ccc; background: none; color: black; }
+      .text-gradient { background: none; -webkit-text-fill-color: black; color: black; }
+      .role-badge { border: 1px solid #000; color: #000; background: none; }
+      .container { padding: 0; max-width: 100%; }
+      a { text-decoration: underline; color: black; }
+      .timeline { border-left-color: #000; }
+      .timeline-dot { border-color: #000; box-shadow: none; }
+      .skill-bar { background: #333 !important; -webkit-print-color-adjust: exact; }
+    }
+    
+    @media (max-width: 600px) {
+      .contact-links { justify-content: flex-start; flex-wrap: wrap; }
+      .timeline-header { flex-direction: column; gap: 5px; }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <header class="fade-in">
-            <span class="role-badge">Senior Full Stack Developer</span>
-            <h1><br><span class="highlight">Bharat Kaneriya</span></h1>
-            <p class="hero-bio">
-                10 years of experience designing scalable architectures. <br>
-                Specialized in <strong>PHP (Laravel)</strong> and <strong>JavaScript (React/Node)</strong>.
-            </p>
-            <div class="cta-group">
-                <a href="https://linkedin.com/in/yourprofile" class="btn btn-primary">Connect on LinkedIn</a>
-                <a href="mailto:youremail@example.com" class="btn btn-secondary">Email Me</a>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <div class="container">
+
+    <header class="hero-container fade-up">
+      <div class="card">
+        <div class="hero-info">
+          <span class="role-badge">Senior Full Stack Developer</span>
+          <h1><span class="text-gradient">Bharat Kaneriya</span></h1>
+          
+          <div class="contact-links">
+            <span><i class="fa-solid fa-location-dot"></i> Ahmedabad, India</span>
+            <span><i class="fa-solid fa-envelope"></i> bharatk.web@gmail.com</span>
+          </div>
+
+          <p class="hero-bio">
+            Senior engineer with 10+ years designing scalable architectures, RESTful APIs and modern JavaScript (React/Node). Strong Laravel & PHP background.
+          </p>
+          
+          <div class="flex-row hero-actions" style="flex-wrap:wrap">
+            <a href="https://linkedin.com/in/yourprofile" class="btn btn-ghost"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+            <a href="https://github.com/yourprofile" class="btn btn-ghost"><i class="fa-brands fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="fade-up">
+        <h2>Technical Toolbox</h2>
+        <div class="card tech-grid">
+          <div class="tech-category">
+            <h3><i class="fa-solid fa-server"></i> Backend</h3>
+            <div class="tags">
+              <span class="tag">PHP 8+</span>
+              <span class="tag">Laravel</span>
+              <span class="tag">Microservices</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">REST APIs</span>
             </div>
-        </header>
+          </div>
+          <div class="tech-category">
+            <h3><i class="fa-solid fa-code"></i> Frontend</h3>
+            <div class="tags">
+              <span class="tag">React</span>
+              <span class="tag">JavaScript (ES6+)</span>
+              <span class="tag">jQuery</span>
+              <span class="tag">HTML / Bootstrap</span>
+            </div>
+          </div>
+          <div class="tech-category">
+            <h3><i class="fa-solid fa-cloud"></i> Cloud & Database</h3>
+            <div class="tags">
+              <span class="tag">AWS (EC2, S3)</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">MongoDB</span>
+              <span class="tag">Git & CI/CD</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <section class="fade-in delay-1">
-            <h2>Technical Toolbox</h2>
-            <div class="tech-grid">
-                
-                <div class="card">
-                    <div class="tech-category">
-                        <h3>🛠 Backend Architecture</h3>
-                        <div class="tech-tags">
-                            <span class="tag">PHP 8+</span>
-                            <span class="tag">Laravel</span>
-                            <span class="tag">Node.js</span>
-                            <span class="tag">Express</span>
-                            <span class="tag">CodeIgniter</span>
-                        </div>
-                    </div>
-                </div>
+      <section class="fade-up">
+        <h2>Core Competencies</h2>
+        <div class="card skills-grid">
+          <div>
+            <div class="skill-item">
+              <div class="skill-header"><span>Laravel Framework</span><span>95%</span></div>
+              <div class="skill-track"><div class="skill-bar" data-width="95%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header"><span>MySQL / Database Design</span><span>85%</span></div>
+              <div class="skill-track"><div class="skill-bar" data-width="85%"></div></div>
+            </div>
+          </div>
+          <div>
+            <div class="skill-item">
+              <div class="skill-header"><span>React / JavaScript</span><span>80%</span></div>
+              <div class="skill-track"><div class="skill-bar" data-width="80%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header"><span>API Integration</span><span>90%</span></div>
+              <div class="skill-track"><div class="skill-bar" data-width="90%"></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                <div class="card">
-                    <div class="tech-category">
-                        <h3>💻 Frontend Experience</h3>
-                        <div class="tech-tags">
-                            <span class="tag">React JS</span>
-                            <span class="tag">JavaScript (ES6+)</span>
-                            <span class="tag">jQuery</span>
-                            <span class="tag">HTML5 / CSS3</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="tech-category">
-                        <h3>☁ Cloud & DevOps</h3>
-                        <div class="tech-tags">
-                            <span class="tag">AWS (EC2/S3)</span>
-                            <span class="tag">MySQL</span>
-                            <span class="tag">MongoDB</span>
-                            <span class="tag">Git & GitHub</span>
-                            <span class="tag">RESTful APIs</span>
-                        </div>
-                    </div>
-                </div>
+      <section class="fade-up">
+        <h2>Professional Journey</h2>
+        <div class="timeline">
+          
+          <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="timeline-header">
+              <div>
+                <div class="company">Group8A India</div>
+                <div class="role">Senior Full Stack Developer</div>
+              </div>
+              <div class="date">May 2025 – Present</div>
+            </div>
+            <div class="timeline-desc">
+                <ul style="list-style: circle;padding-left: 14px;">
+                    <li>Collaborated with cross-functional teams to deliver stable, high-impact features aligned with business and product objectives.</li>
+                    <li>Implemented and optimized third-party API integrations, enhancing system connectivity and delivering a smoother user experience.</li>
+                    <li>Proactively identified and resolved complex technical issues, helping maintain development efficiency and minimizing project disruptions.</li>
+                </ul>
 
             </div>
-        </section>
+          </div>
 
-        <section class="fade-in delay-2">
-            <h2>Professional Journey</h2>
-            <div class="timeline">
-
-                <div class="job-item">
-                    <div class="job-dot"></div>
-                    <div class="job-header">
-                        <div>
-                            <span class="company-name">Group8A India</span>
-                            <span class="job-title">Senior Full Stack Developer</span>
-                        </div>
-                        <span class="job-date">May 2025 - Present</span>
-                    </div>
-                    <p class="job-desc">
-                        Foundation years. Mastered Core PHP and MySQL while working in weekly Agile sprints. Rapidly progressed from maintenance tasks to feature development.
-                    </p>
-                </div>
-                
-                <div class="job-item">
-                    <div class="job-dot"></div>
-                    <div class="job-header">
-                        <div>
-                            <span class="company-name">Moon Technolabs</span>
-                            <span class="job-title">Web Team Lead</span>
-                        </div>
-                        <span class="job-date">Jan 2023 - Apr 2025</span>
-                    </div>
-                    <p class="job-desc">
-                        Built custom Laravel applications for diverse international clients. Integrated third-party APIs (Payment Gateways, CRMs) to enhance system functionality.
-                    </p>
-                </div>
-
-                <div class="job-item">
-                    <div class="job-dot"></div>
-                    <div class="job-header">
-                        <div>
-                            <span class="company-name">Nyusoft Solutions</span>
-                            <span class="job-title">Senior Full Stack Developer</span>
-                        </div>
-                        <span class="job-date">Dec 2015 - Jan 2023</span>
-                    </div>
-                    <p class="job-desc">
-                        Currently leading the development of complex reporting portals. Optimised database performance for large-scale datasets and managed secure AWS infrastructure deployments.
-                    </p>
-                </div>
-
+          <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="timeline-header">
+              <div>
+                <div class="company">Moon Technolabs</div>
+                <div class="role">Web Team Lead</div>
+              </div>
+              <div class="date">Jan 2023 – Apr 2025</div>
             </div>
-        </section>
+            <div class="timeline-desc">
+                <ul style="list-style: circle;padding-left: 14px;">
+                    <li>Led the development team in delivering scalable, high-quality web solutions while ensuring adherence to best coding practices.</li>
+                    <li>Worked closely with management and designers to craft intuitive user interfaces and provided accurate effort estimations to support project planning.</li>
+                    <li>Mentored and trained junior team members by sharing best practices and technical guidance.</li>
+                    <li>Performed end-to-end deployment cycles, ensuring reliable releases and smooth platform operations.</li>
+                </ul>
+            </div>
+          </div>
 
-        <footer class="fade-in delay-3">
-            <p>© 2025 Bharat Kaneriya</p>
-        </footer>
+          <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="timeline-header">
+              <div>
+                <div class="company">Nyusoft Solutions</div>
+                <div class="role">Senior Software Programmer</div>
+              </div>
+              <div class="date">Dec 2015 – Jan 2023</div>
+            </div>
+            <div class="timeline-desc">
+                <ul style="list-style: circle;padding-left: 14px;">
+                    <li>Successfully navigated a complete professional journey from entry-level execution to advanced strategic contribution. Highly proficient in PHP and Laravel, with a demonstrated ability to adapt, learn, and deliver consistent results.</li>
+                    <li>Handled end-to-end web application deployments, ensuring smooth and error-free releases.</li>
+                    <li>Provided mentorship and technical support to junior developers, helping strengthen team capability and project delivery standards.</li>
+                </ul>
+            </div>
+          </div>
 
-    </div>
+        </div>
+      </section>
 
+      <section class="fade-up">
+        <h2>Selected Projects</h2>
+        <div class="project-grid">
+          <a href="#" target="_blank" class="project-card">
+            <div class="flex-row">
+              <div class="project-icon">A</div>
+              <div>
+                <div style="font-weight:700; margin-bottom:4px">E-commerce Analytics Dashboard</div>
+                <div style="font-size:0.85rem; color:var(--text-secondary)">Laravel + MySQL + React (Performance optimizations & Shopify integration)</div>
+              </div>
+            </div>
+            <div class="project-link">View Project &rarr;</div>
+          </a>
+
+          <a href="#" target="_blank" class="project-card">
+            <div class="flex-row">
+              <div class="project-icon">B</div>
+              <div>
+                <div style="font-weight:700; margin-bottom:4px">Payment Gateway Integration</div>
+                <div style="font-size:0.85rem; color:var(--text-secondary)">Built secure payment integration & webhooks for client portals.</div>
+              </div>
+            </div>
+            <div class="project-link">View Project &rarr;</div>
+          </a>
+        </div>
+      </section>
+
+      <section class="fade-up">
+        <h2>Education</h2>
+        <div class="card">
+          <ul style="padding-left:0; font-size:0.95rem;">
+            <li style="margin-bottom:10px"><strong>M.Sc. IT & CA</strong> — Saurashtra University (2013–2015)</li>
+            <li style="margin-bottom:10px"><strong>P.G.D.C.A.</strong> — Saurashtra University (2012–2013)</li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="fade-up">
+      <p>© 2025 Bharat Kaneriya</p>
+    </footer>
+
+  </div>
+
+  <script>
+    // ------------------------------------------------
+    // ANIMATION LOGIC: Intersection Observer
+    // ------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            
+            // If the entry contains skill bars, animate them
+            const bars = entry.target.querySelectorAll('.skill-bar');
+            bars.forEach(bar => {
+              const width = bar.getAttribute('data-width');
+              bar.style.width = width;
+            });
+
+            // Stop observing once visible to avoid re-triggering
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      // Observe all elements with .fade-up class
+      document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    });
+  </script>
 </body>
 </html>
